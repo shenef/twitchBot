@@ -1,0 +1,13 @@
+# Example configuration file for the twitch_bot.py script
+
+# Put your twitch token from https://twitchtokengenerator.com/ here
+token: YOUR_TOKEN
+
+# Put the names of all channels the bot will run in, as a list
+channels:
+  - YOUR_CHANNEL_NAME
+
+# Put the names of all users NOT allowed to execute bot commands, as a list
+banned_users:
+  - OTHER_USER0
+  - OTHER_USER1
