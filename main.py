@@ -38,7 +38,7 @@ class Bot(commands.Bot):
 
     async def event_ready(self):
         # Notify when we are logged in and ready to use commands
-        print(f"{self.nick} | {self.user_id}")
+        print(f"Logged in | {self.nick} | {self.user_id}")
 
     @commands.command()
     async def boktai(self, ctx: commands.Context):
@@ -52,11 +52,11 @@ class Bot(commands.Bot):
     @commands.command()
     async def discord(self, ctx: commands.Context):
         await ctx.send("My Discord: https://discord.gg/ebmfGDP")
-        await ctx.send("TaiyohNetwork: https://discord.gg/hdJsvEJP3p")
+        await ctx.send("Taiyoh Network: https://discord.gg/hdJsvEJP3p")
 
     @commands.command()
     async def solutions(self, ctx: commands.Context):
-        await ctx.send("7 9 10 1 3 5 8, = + /, 53, 254")
+        await ctx.send("7 9 10 1 3 5 8, 4x straight, 2x left, = + /, 53, 254")
 
     @commands.command()
     async def leaderboard(self, ctx: commands.Context):
@@ -76,8 +76,59 @@ class Bot(commands.Bot):
     @commands.command()
     async def splits(self, ctx: commands.Context):
         await ctx.send(
-            "Create split files from plain text: https://splitify.shenef.one"
+            "Generate split files from plain text: https://splitify.shenef.one"
         )
+
+    @commands.command()
+    async def test(
+        self,
+        ctx: commands.Context,
+        dungeon_name: str,
+        time: int,
+        found: int,
+        continues: int,
+        charged: int,
+    ):
+        base_scores = {
+            "Crumbling Mine": 45,
+            "Deserted Arsenal": 50,
+            "Gate of the Dead": 50,
+            "Ruined Cemetery": 50,
+            "Stench Forest": 50,
+            "Noname Fortress": 55,
+            "Small Cave": 70,
+            "Death Cliff": 80,
+            "Forgotten Tomb": 90,
+            "Suffering House": 90,
+            "Fire Dragon's Grave": 100,
+            "Remaining Tower": 105,
+            "Ancient Forest": 120,
+            "Catacomb": 120,
+            "Scar of the Land": 120,
+            "Water Demon's Cage": 125,
+            "Stairs of Trial": 130,
+            "Valley of Ice": 130,
+            "Abyss": 135,
+            "Delusion Forest": 180,
+            "Fallen Devil Castle": 190,
+            "House of Darkness": 210,
+            "Permafrost": 600,
+            "Fog Castle": 720,
+            "Bloodrust Mansion": 1200,
+            "Sol City": 1200,
+            "Firetop Mountain": 1500,
+        }
+
+        base_score = base_scores[dungeon_name]
+        score = 1000 + base_score - time
+        if score > 1000:
+            score = 1000
+
+        dungeon_score = score - (found * 30) - (continues * 100) + (charged * 10)
+
+        await ctx.send(f"{dungeon_name} | {time} | {found} | {continues} | {charged}")
+        await ctx.send(f"{base_score}")
+        await ctx.send(f"{dungeon_score}")
 
     @commands.command(aliases=("commandos", "commands"))
     async def options(self, ctx: commands.Context):
