@@ -80,7 +80,7 @@ class Bot(commands.Bot):
         )
 
     @commands.command()
-    async def test(
+    async def score(
         self,
         ctx: commands.Context,
         dungeon_name: str,
@@ -126,9 +126,32 @@ class Bot(commands.Bot):
 
         dungeon_score = score - (found * 30) - (continues * 100) + (charged * 10)
 
-        await ctx.send(f"{dungeon_name} | {time} | {found} | {continues} | {charged}")
-        await ctx.send(f"{base_score}")
-        await ctx.send(f"{dungeon_score}")
+        def get_dungeon_rank(dungeon_score):
+            if dungeon_score < 100:
+                dungeon_rank = "C-"
+            elif dungeon_score < 300:
+                dungeon_rank = "C"
+            elif dungeon_score < 500:
+                dungeon_rank = "C+"
+            elif dungeon_score < 600:
+                dungeon_rank = "B-"
+            elif dungeon_score < 700:
+                dungeon_rank = "B"
+            elif dungeon_score < 800:
+                dungeon_rank = "B+"
+            elif dungeon_score < 900:
+                dungeon_rank = "A-"
+            elif dungeon_score < 950:
+                dungeon_rank = "A"
+            elif dungeon_score < 1000:
+                dungeon_rank = "A+"
+            else:
+                dungeon_rank = "S"
+            return dungeon_rank
+
+        dungeon_rank = get_dungeon_rank(dungeon_score)
+
+        await ctx.send(f"Score: {dungeon_score} | Rank: {dungeon_rank}")
 
     @commands.command(aliases=("commandos", "commands"))
     async def options(self, ctx: commands.Context):
