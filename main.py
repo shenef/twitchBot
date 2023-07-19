@@ -51,8 +51,10 @@ class Bot(commands.Bot):
 
     @commands.command()
     async def discord(self, ctx: commands.Context):
-        await ctx.send("My Discord: https://discord.gg/ebmfGDP")
-        await ctx.send("Taiyoh Network: https://discord.gg/hdJsvEJP3p")
+        await ctx.send(
+            "My Discord: https://discord.gg/ebmfGDP | "
+            + "Taiyoh Network: https://discord.gg/hdJsvEJP3p"
+        )
 
     @commands.command()
     async def solutions(self, ctx: commands.Context):
@@ -65,9 +67,9 @@ class Bot(commands.Bot):
     @commands.command()
     async def website(self, ctx: commands.Context):
         await ctx.send(
-            "Collection of information about Boktai mechanics: https://boktai.shenef.one"
+            "Collection of information about Boktai mechanics: "
+            + "https://boktai.shenef.one | WIP update: https://beta.shenef.one/boktai1"
         )
-        await ctx.send("WIP update: https://beta.shenef.one/boktai1")
 
     @commands.command()
     async def pizza(self, ctx: commands.Context):
@@ -153,10 +155,22 @@ class Bot(commands.Bot):
 
         await ctx.send(f"Score: {dungeon_score} | Rank: {dungeon_rank}")
 
+    @commands.command()
+    async def explain_score(self, ctx: commands.Context):
+        await ctx.send('Example: !score "Water Demon\'s Cage" 330 4 0 11')
+        await ctx.send("Format: DungeonName TimeInSeconds Found Continues Charged")
+        await ctx.send(
+            "The dungeon name only needs quotes when there is a space in "
+            + "between. The dungeon name must be exactly as in Game "
+            + "(case, special characters, spaces). All arguments must be present."
+        )
+
     @commands.command(aliases=("commandos", "commands"))
-    async def options(self, ctx: commands.Context):
+    async def bot_commands(self, ctx: commands.Context):
         commands = [
             "commands",
+            "score",
+            "explain_score",
             "boktai",
             "discord",
             "solutions",
@@ -167,13 +181,12 @@ class Bot(commands.Bot):
         ]
         await ctx.send(", ".join(commands))
 
-    # Define some command
-    # @commands.command()
-    # async def something(self, ctx: commands.Context):
-    #     if ctx.author.name not in self.banned_users:
-    #         await ctx.send("yes")
-    #     else:
-    #         await ctx.send("nope")
+    @commands.command()
+    async def banned(self, ctx: commands.Context):
+        if ctx.author.name in self.banned_users:
+            await ctx.send("yes")
+        else:
+            await ctx.send("nope")
 
 
 # Main entry point of script
