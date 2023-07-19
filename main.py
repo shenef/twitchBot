@@ -23,7 +23,7 @@ class BotConfig:
                     print(f"Error: Failed to parse config file {config_path}")
                     print(E)
         except Exception:
-            print(f"Didn't find config file {config_path}, using default values.")
+            print(f"Can't find config at {config_path}, using default values instead.")
 
 
 # Define the bot
@@ -32,18 +32,22 @@ class Bot(commands.Bot):
         token: str = config.get("token", "YOUR_TOKEN_HERE")
         channels: str = config.get("channels", ["YOUR_CHANNEL_NAME"])
         # Define the users who are NOT allowed to send commands
-        self.blocked_users = config.get("blocked_users", ["YOUR_CHANNEL_NAME"])
+        self.banned_users = config.get("banned_users", ["YOUR_CHANNEL_NAME"])
         super().__init__(token=token, prefix="!", initial_channels=channels)
         self.process = None
 
     async def event_ready(self):
         # Notify when we are logged in and ready to use commands
-        print(f"Logged in as {self.nick}")
-        print(f"User id is {self.user_id}")
+        print(f"{self.nick} | {self.user_id}")
 
     @commands.command()
     async def boktai(self, ctx: commands.Context):
-        await ctx.send("")
+        await ctx.send(
+            "Boktai: The Sun is in Your Hand is an action-adventure RPG where you play "
+            + "as Django, a vampire hunter who uses a solar-powered gun to fight "
+            + "against the forces of darkness. The game's unique light sensor tracks "
+            + "the amount of sunlight in your environment, which affects the gameplay."
+        )
 
     @commands.command()
     async def discord(self, ctx: commands.Context):
@@ -56,14 +60,14 @@ class Bot(commands.Bot):
 
     @commands.command()
     async def leaderboard(self, ctx: commands.Context):
-        await ctx.send("https://speedrun.com/tsiiyh")
+        await ctx.send("Boktai 1 Leaderboard: https://speedrun.com/tsiiyh")
 
     @commands.command()
     async def website(self, ctx: commands.Context):
         await ctx.send(
             "Collection of information about Boktai mechanics: https://boktai.shenef.one"
         )
-        await ctx.send("WIP update: https://beta.shenef.one")
+        await ctx.send("WIP update: https://beta.shenef.one/boktai1")
 
     @commands.command()
     async def pizza(self, ctx: commands.Context):
