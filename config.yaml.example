@@ -9,5 +9,5 @@ channels:
 
 # Put the names of all users NOT allowed to execute bot commands, as a list
 banned_users:
-  - OTHER_USER0
-  - OTHER_USER1
+  - BANNED_USER0
+  - BANNED_USER1
