@@ -1,7 +1,7 @@
 from twitchio.ext import commands
 
 
-class Score(commands.Cog):
+class ScoreCommands(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -10,9 +10,8 @@ class Score(commands.Cog):
         await ctx.send('Example: !score "Water Demon\'s Cage" 330 4 0 11')
         await ctx.send("Format: DungeonName TimeInSeconds Found Continues Charged")
         await ctx.send(
-            "The dungeon name only needs quotes when there is a space in "
-            + "between. The dungeon name must be exactly as in Game "
-            + "(case, special characters, spaces). All arguments must be present."
+            "The dungeon name only needs quotes when there is a space in it. "
+            + "All arguments must be present."
         )
 
     @commands.command()
@@ -53,6 +52,14 @@ class Score(commands.Cog):
             "Bloodrust Mansion": 1200,
             "Sol City": 1200,
             "Firetop Mountain": 1500,
+        }
+
+        # remove upper case, spaces and special characters from
+        # the base_scores dict and dungeon_name argument
+        dungeon_name = "".join(e for e in dungeon_name if e.isalnum()).lower()
+        base_scores = {
+            key.replace(" ", "").replace("'", "").lower(): value
+            for key, value in base_scores.items()
         }
 
         base_score = base_scores[dungeon_name]

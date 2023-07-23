@@ -1,5 +1,5 @@
 from twitchio.ext import commands
-from commands.score import Score
+from commands.score import ScoreCommands
 from commands.misc import MiscCommands
 import yaml
 from typing import Dict
@@ -78,6 +78,6 @@ if __name__ == "__main__":
     bot = Bot(conf.data)
 
     bot.add_cog(MiscCommands(bot))
-    bot.add_cog(Score(bot))
+    bot.add_cog(ScoreCommands(bot))
 
     bot.run()
