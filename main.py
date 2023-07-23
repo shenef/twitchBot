@@ -38,6 +38,7 @@ class Bot(commands.Bot):
             token=token,
             prefix=["!", "?"],
             initial_channels=channels,
+            case_insensitive=True,
         )
         self.process = None
 
