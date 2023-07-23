@@ -10,7 +10,7 @@ repos:
       - id: ruff
         args: [
           --fix, 
-          --ignore, E501, # E501 = line too long
+          # --ignore, E501, # E501 = line too long
           ]
 
   - repo: https://github.com/psf/black
