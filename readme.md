@@ -4,7 +4,7 @@ Made for <https://twitch.tv/shenef>.
 
 ## install
 
->`pip install -r requirements.txt`
+`pip install -r requirements.txt`
 
 ## setup
 
@@ -12,4 +12,4 @@ Copy `config.yaml.example` and rename it to `config.yaml`. Enter your token and 
 
 ## run
 
->`py main.py`
+`py main.py`
