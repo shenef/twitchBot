@@ -34,7 +34,11 @@ class Bot(commands.Bot):
         channels: str = config.get("channels", ["YOUR_CHANNEL_NAME"])
         # Define the users who are NOT allowed to send commands
         self.banned_users = config.get("banned_users", ["YOUR_CHANNEL_NAME"])
-        super().__init__(token=token, prefix="!", initial_channels=channels)
+        super().__init__(
+            token=token,
+            prefix=["!", "?"],
+            initial_channels=channels,
+        )
         self.process = None
 
     async def event_ready(self):
@@ -59,7 +63,9 @@ class Bot(commands.Bot):
 
     @commands.command()
     async def banned(self, ctx: commands.Context):
-        if ctx.author.name in self.banned_users:
+        if ctx.prefix == "?":
+            await ctx.send(self.banned_users)
+        elif ctx.author.name in self.banned_users:
             await ctx.send("yes")
         else:
             await ctx.send("nope")
